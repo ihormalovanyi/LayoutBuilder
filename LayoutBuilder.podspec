@@ -18,8 +18,8 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
   spec.ios.deployment_target = "9.0"
   spec.swift_version = "5.4"
   spec.osx.deployment_target = "10.10"
-  spec.watchos.deployment_target = "2.0"
-  spec.tvos.deployment_target = "9.0"
+  #spec.watchos.deployment_target = "2.0"
+  #spec.tvos.deployment_target = "9.0"
 
 
   spec.source       = { :git => "https://github.com/multimediasuite/LayoutBuilder.git", :tag => "#{spec.version}" }
