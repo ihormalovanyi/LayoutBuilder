@@ -1,5 +1,13 @@
 # LayoutBuilder
 
+LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way. LayoutBuilder is based on the newest Swift features and works with simple operators.
+
+[![Platform](https://img.shields.io/badge/platform-ios-blue.svg?style=flat%20)](https://developer.apple.com/iphone/index.action)
+[![Swift 5.4](https://img.shields.io/badge/Swift-5.3-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/multimediasuite/LayoutBuilder/blob/master/LICENSE)
+
+![](https://ihor.pro/wp-content/uploads/2020/01/ezgif-6-f06884bc0af6.gif)  ![](https://ihor.pro/wp-content/uploads/2020/01/ezgif-6-e332ad33f4ea.gif)
+
 ## Contents
 - [Overview](#overview)
 - [Features](#features)
@@ -70,6 +78,8 @@ There are multiple operators created for NSLayoutConstraint creation.
 | `*` | Operator to add multiplier to relation. Use before you call `layout(_ attribute:)` method in the second view |
 | `!` | Operator to add priority to the constraint. Use after your constraint vas created |
 
+Call `Layout` initializer to apply constraints. Layout initializer's single parameter is a closure that uses Result Builder **LayoutBuilder** to accept multiple NSLayoutConstraints parameters.
+
 ### Examples
 
 1. Create redView and blueView properties and add them as subviews to the parent view
@@ -105,7 +115,6 @@ Layout {
     heightConstraint
 }
 ````
-Call Layout initializer to apply constraints. Layout initializer's single parameter is a closure that uses Result Builder **LayoutBuilder** to accept multiple NSLayoutConstraints parameters.
 
 Also you can create constraints directly inside Layout body
 ````swift
@@ -146,3 +155,11 @@ Layout {
 }
 ````
 You can use conditional statements and optional chaining inside Layout body. It provides a really flexible way to constraint building.
+
+## Credits
+
+- Ihor Malovanyi ([@multimediasuite](https://www.facebook.com/multimediasuite))
+
+## License
+
+LayoutBuilder is released under the MIT license. See LICENSE for details.
