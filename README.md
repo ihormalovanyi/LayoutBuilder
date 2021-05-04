@@ -1,1 +1,148 @@
 # LayoutBuilder
+
+## Contents
+- [Overview](#overview)
+- [Features](#features)
+- [Installation](#installation)
+- [Explanation](#explanation)
+- [Credits](#credits)
+- [License](#license)
+
+## Overview
+A **LayoutBuilder** framework provides a [Layout] structure (#layoutstruct) that uses its init method with a **LayoutBuilder** Result Builder structure to catch NSLayoutConstraint collection in closure and apply them after.
+
+A **LayoutBuilder** provides multiple operators to create **NSLayoutConstraint** in a new clear way. You can also create your own NSLayoutConstraint-s or use constraints created earlier.
+
+## Features
+- New constraint creation way, based on operators.
+- Based on a new Swift feature called Result Builder (ex Function Builder).
+- Allowed to use conditional statements inside **Layout** body to create flexible constraint scenario.
+
+## Installation
+
+### CocoaPods
+
+[CocoaPods](#https://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+```
+$ gem install cocoapods
+```
+To integrate **LayoutBuilder** into your Xcode project using CocoaPods, specify it in your `Podfile`:
+```ruby
+platform :ios, '9.0'
+use_frameworks!
+
+target '<Your Target Name>' do
+  pod 'LayoutBuilder'
+end
+```
+Then, run the following command:
+```
+$ pod install
+```
+
+### Manually
+
+If you prefer not to use either of the aforementioned dependency managers, you can integrate **LayoutBuilder** into your project manually.
+
+## Explanation
+
+### Description
+
+I was inspired by the [Auto Layout Guide](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/AnatomyofaConstraint.html) to create a new operator-based way to create NSLayoutConstraint that will match the primary **LayoutBuilder** idea.
+
+![](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/Art/view_formula_2x.png)
+
+So, full construction of operator-based constraint creation is 
+````
+(leftSideView.layout(<NSLayoutConstraint.Attribute>) == multiplier * rightSideView.layout(<NSLayoutConstraint.Attribute>) + constant) ! UILayoutPriority
+````
+UIView was extended with `layout(_ attribute:)` method, where attribute is NSLayoutConstraint.Attribute.
+Call `view.layout(.attributeName)` for each side of layout creation operators.
+
+There are multiple operators created for NSLayoutConstraint creation.
+| Operator | Description |
+| :--- | :--- |
+| `==` | EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+| `>=` | GREATER THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+| `<=` | LESS THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+| `+` | Operator to add constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
+| `-` | Operator to add inversed constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
+| `*` | Operator to add multiplier to relation. Use before you call `layout(_ attribute:)` method in the second view |
+| `!` | Operator to add priority to the constraint. Use after your constraint vas created |
+
+### Examples
+
+1. Create redView and blueView properties and add them as subviews to the parent view
+````swift
+let redView = UIView()
+redView.backgroundColor = .red
+        
+let blueView = UIView()
+blueView.backgroundColor = .blue
+        
+view.addSubview(redView)
+view.addSubview(blueView)
+````
+2. Create constraints
+````swift
+//1
+let topConstraint = redView.layout(.top) == view.layout(.centerY) + 50 
+//2
+let leadingConstraint = redView.layout(.leading) == 20
+//3
+let centerXConstraint = (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
+//4
+let heightConstraint = redView.layout(.height) >= 33
+````
+So, we created 4 constraints. Top Constraint (1) was created using the relation between two views and adding constant to this relation. Leading Constraint (2) was created using the relation berween view and constant. Such an entry means that Red View automatically applies relation to its superview and adds constant. Center X Constraint (3) was created using the relation between two views, multiplier, constant, and priority. Height Constraint (4) was created using greaterThanOrEqual relation between view and constant. 
+
+3. Apply constraints 
+````swift
+Layout {
+    topConstraint
+    leadingConstraint
+    centerXConstraint
+    heightConstraint
+}
+````
+Call Layout initializer to apply constraints. Layout initializer's single parameter is a closure that uses Result Builder **LayoutBuilder** to accept multiple NSLayoutConstraints parameters.
+
+Also you can create constraints directly inside Layout body
+````swift
+Layout {
+    redView.layout(.top) == view.layout(.centerY) + 50
+    redView.layout(.leading) == 20
+    (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
+    redView.layout(.height) >= 33
+}
+````
+
+And finaly, you can create and use properties inside Layout body
+````swift
+Layout {
+    redView.layout(.top) == view.layout(.centerY) + 50
+    redView.layout(.leading) == 20
+    (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
+            
+    let heightConstraint = redView.layout(.height) >= 33            
+    heightConstraint
+}
+````
+
+4. Using conditional statements inside Layout body
+````
+Layout {
+    if needTopConstraint {
+        redView.layout(.top) == view.layout(.centerY) + 50
+    } else {
+        redView.layout(.centerY) == view.layout(.centerY)
+    }
+            
+    redView.layout(.leading) == 20
+            
+    if let blueView = blueView {
+        blueView.layout(.leading) == 20
+    }
+}
+````
+You can use conditional statements and optional chaining inside Layout body. It provides a really flexible way to constraint building.
