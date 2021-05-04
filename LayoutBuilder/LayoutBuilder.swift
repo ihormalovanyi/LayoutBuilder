@@ -88,7 +88,7 @@ extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
 }
 
 @resultBuilder
-public struct LayoutBuilder {
+public enum LayoutBuilder {
     
     public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap { $0.constraints } }
     public  static func buildOptional(_ component: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } ?? [] }
