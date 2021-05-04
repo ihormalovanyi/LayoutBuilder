@@ -48,7 +48,7 @@ public extension View {
 }
 
 internal func createConstraint(lhs: LayoutParts, rhs: LayoutParts, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
-    .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: rhs.view, attribute: rhs.attribute, multiplier: 1, constant: rhs.constant)
+    .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: rhs.view, attribute: rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
 }
 
 internal func createConstraint(lhs: LayoutParts, rhs: CGFloat, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
