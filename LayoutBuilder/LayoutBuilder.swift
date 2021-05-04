@@ -69,7 +69,7 @@ internal func createConstraint(lhs: LayoutParts, rhs: CGFloat, relation: NSLayou
     return .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: lhs.view.superview, attribute: lhs.attribute, multiplier: 1, constant: rhs)
 }
 
-protocol ConstraintsGroup {
+public protocol ConstraintsGroup {
     
     var constraints: [NSLayoutConstraint] { get }
     
@@ -77,23 +77,23 @@ protocol ConstraintsGroup {
 
 extension NSLayoutConstraint: ConstraintsGroup {
     
-    var constraints: [NSLayoutConstraint] { [self] }
+    public var constraints: [NSLayoutConstraint] { [self] }
     
 }
 
 extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
     
-    var constraints: [NSLayoutConstraint] { self }
+    public var constraints: [NSLayoutConstraint] { self }
     
 }
 
 @resultBuilder
 public struct LayoutBuilder {
     
-    static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap { $0.constraints } }
-    static func buildOptional(_ component: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } ?? [] }
-    static func buildEither(first component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
-    static func buildEither(second component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
+    public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap { $0.constraints } }
+    public  static func buildOptional(_ component: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } ?? [] }
+    public static func buildEither(first component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
+    public static func buildEither(second component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
     
 }
 
