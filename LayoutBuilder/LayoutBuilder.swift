@@ -17,7 +17,7 @@ import UIKit
 #if os(macOS)
 public typealias LayoutParts = (view: NSView, attribute: NSLayoutConstraint.Attribute, constant: CGFloat, multiplier: CGFloat)
 
-open extension NSView {
+public extension NSView {
     
     func layout(_ value: NSLayoutConstraint.Attribute) -> LayoutParts { (self, value, 0, 1) }
     
@@ -25,7 +25,7 @@ open extension NSView {
 #else
 public typealias LayoutParts = (view: UIView, attribute: NSLayoutConstraint.Attribute, constant: CGFloat, multiplier: CGFloat)
 
-open extension UIView {
+public extension UIView {
     
     func layout(_ value: NSLayoutConstraint.Attribute) -> LayoutParts { (self, value, 0, 1) }
     
