@@ -6,11 +6,16 @@
 //
 
 import UIKit
+//import LayoutBuilder
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        Layout {
+//            view.layout(.bottom) == view.layout(.top)
+//        }
     }
 
 
