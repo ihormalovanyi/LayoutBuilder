@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "LayoutBuilder"
-  spec.version      = "0.1.0"
+  spec.version      = "0.1.1"
   spec.summary      = "LayoutBuilder is a modern and clear Layout based on new Swift features."
 
   spec.description  = <<-DESC
@@ -17,9 +17,9 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
   
   spec.ios.deployment_target = "9.0"
   spec.swift_version = "5.4"
-  # spec.osx.deployment_target = "10.10"
-  # spec.watchos.deployment_target = "2.0"
-  # spec.tvos.deployment_target = "9.0"
+  spec.osx.deployment_target = "10.10"
+  spec.watchos.deployment_target = "2.0"
+  spec.tvos.deployment_target = "9.0"
 
 
   spec.source       = { :git => "https://github.com/multimediasuite/LayoutBuilder.git", :tag => "#{spec.version}" }
