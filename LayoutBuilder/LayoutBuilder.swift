@@ -88,19 +88,19 @@ internal func createConstraint(lhs: LayoutParts, rhs: CGFloat, relation: NSLayou
 //}
 
 @resultBuilder
-public enum LayoutBuilder {
+public enum LayoutResultBuilder {
     
     public static func buildBlock(_ components: NSLayoutConstraint...) -> [NSLayoutConstraint] { components }
     public  static func buildOptional(_ components: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { components ?? [] }
     public static func buildEither(first components: [NSLayoutConstraint]) -> [NSLayoutConstraint] { components }
-    public static func buildEither(second components: [NSLayoutConstraint]) -> [NSLayoutConstraint] { components } 
+    public static func buildEither(second components: [NSLayoutConstraint]) -> [NSLayoutConstraint] { components }
     
 }
 
 public struct Layout {
     
     @discardableResult
-    public init(@LayoutBuilder _ build: () -> [NSLayoutConstraint]) {
+    public init(@LayoutResultBuilder _ build: () -> [NSLayoutConstraint]) {
         let constraints = build()
         constraints.forEach {
             #if os(macOS)
