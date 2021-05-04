@@ -14,6 +14,7 @@
 		876229532641236D00686C89 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 876229512641236D00686C89 /* Main.storyboard */; };
 		876229552641236E00686C89 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 876229542641236E00686C89 /* Assets.xcassets */; };
 		876229582641236E00686C89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 876229562641236E00686C89 /* LaunchScreen.storyboard */; };
+		8797DDDE26412C0C00FD55DD /* LayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8797DDDD26412C0C00FD55DD /* LayoutBuilder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		876229542641236E00686C89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		876229572641236E00686C89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		876229592641236E00686C89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8797DDDD26412C0C00FD55DD /* LayoutBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutBuilder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +53,6 @@
 		8762290F264122D900686C89 = {
 			isa = PBXGroup;
 			children = (
-				8762295D2641241200686C89 /* New Group */,
 				8762294A2641236D00686C89 /* LayoutBuilderExample-iOS */,
 				8762291B264122D900686C89 /* LayoutBuilder */,
 				8762291A264122D900686C89 /* Products */,
@@ -70,6 +71,7 @@
 		8762291B264122D900686C89 /* LayoutBuilder */ = {
 			isa = PBXGroup;
 			children = (
+				8797DDDD26412C0C00FD55DD /* LayoutBuilder.swift */,
 				8762291C264122D900686C89 /* LayoutBuilder.h */,
 				8762291D264122D900686C89 /* Info.plist */,
 			);
@@ -88,13 +90,6 @@
 				876229592641236E00686C89 /* Info.plist */,
 			);
 			path = "LayoutBuilderExample-iOS";
-			sourceTree = "<group>";
-		};
-		8762295D2641241200686C89 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "New Group";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +152,7 @@
 				TargetAttributes = {
 					87622918264122D900686C89 = {
 						CreatedOnToolsVersion = 12.5;
+						LastSwiftMigration = 1250;
 					};
 					876229482641236D00686C89 = {
 						CreatedOnToolsVersion = 12.5;
@@ -207,6 +203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8797DDDE26412C0C00FD55DD /* LayoutBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -367,6 +364,7 @@
 		87622922264122D900686C89 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2PKVZCQ5NM;
@@ -385,6 +383,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SUPPORTS_MACCATALYST = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -393,6 +392,7 @@
 		87622923264122D900686C89 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 2PKVZCQ5NM;
@@ -424,6 +424,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2PKVZCQ5NM;
 				INFOPLIST_FILE = "LayoutBuilderExample-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -443,6 +444,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2PKVZCQ5NM;
 				INFOPLIST_FILE = "LayoutBuilderExample-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
