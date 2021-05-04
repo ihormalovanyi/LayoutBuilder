@@ -5,8 +5,6 @@
 //  Created by Ihor Malovanyi on 04.05.2021.
 //
 
-@_exported import LayoutBuilder
-
 #if canImport(UIKit)
     import UIKit
     public typealias View = UIView
