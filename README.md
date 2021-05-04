@@ -6,8 +6,6 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
 [![Swift 5.4](https://img.shields.io/badge/Swift-5.3-orange.svg?style=flat)](https://developer.apple.com/swift/)
 [![MIT](https://img.shields.io/badge/license-MIT-green)](https://github.com/multimediasuite/LayoutBuilder/blob/master/LICENSE)
 
-![](https://ihor.pro/wp-content/uploads/2020/01/ezgif-6-f06884bc0af6.gif)  ![](https://ihor.pro/wp-content/uploads/2020/01/ezgif-6-e332ad33f4ea.gif)
-
 ## Contents
 - [Overview](#overview)
 - [Features](#features)
