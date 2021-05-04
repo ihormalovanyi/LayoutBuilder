@@ -6,7 +6,7 @@
 //
 
 import UIKit
-//import LayoutBuilder
+import LayoutBuilder
 
 class ViewController: UIViewController {
 
@@ -16,6 +16,7 @@ class ViewController: UIViewController {
 //        Layout {
 //            view.layout(.bottom) == view.layout(.top)
 //        }
+//        Layout { }
     }
 
 

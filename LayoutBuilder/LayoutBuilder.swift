@@ -69,31 +69,31 @@ internal func createConstraint(lhs: LayoutParts, rhs: CGFloat, relation: NSLayou
     return .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: lhs.view.superview, attribute: lhs.attribute, multiplier: 1, constant: rhs)
 }
 
-public protocol ConstraintsGroup {
-    
-    var constraints: [NSLayoutConstraint] { get }
-    
-}
-
-extension NSLayoutConstraint: ConstraintsGroup {
-    
-    public var constraints: [NSLayoutConstraint] { [self] }
-    
-}
-
-extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
-    
-    public var constraints: [NSLayoutConstraint] { self }
-    
-}
+//protocol ConstraintsGroup {
+//
+//    var constraints: [NSLayoutConstraint] { get }
+//
+//}
+//
+//extension NSLayoutConstraint: ConstraintsGroup {
+//
+//    public var constraints: [NSLayoutConstraint] { [self] }
+//
+//}
+//
+//extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
+//
+//    public var constraints: [NSLayoutConstraint] { self }
+//
+//}
 
 @resultBuilder
 public enum LayoutBuilder {
     
-    public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap { $0.constraints } }
-    public  static func buildOptional(_ component: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } ?? [] }
-    public static func buildEither(first component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
-    public static func buildEither(second component: [NSLayoutConstraint]) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } }
+    public static func buildBlock(_ components: NSLayoutConstraint...) -> [NSLayoutConstraint] { components }
+    public  static func buildOptional(_ components: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { components ?? [] }
+    public static func buildEither(first components: [NSLayoutConstraint]) -> [NSLayoutConstraint] { components }
+    public static func buildEither(second components: [NSLayoutConstraint]) -> [NSLayoutConstraint] { components } 
     
 }
 

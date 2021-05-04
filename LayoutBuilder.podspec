@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "LayoutBuilder"
-  spec.version      = "0.0.7"
+  spec.version      = "0.0.8"
   spec.summary      = "LayoutBuilder is a modern and clear Layout based on new Swift features."
 
   spec.description  = <<-DESC
