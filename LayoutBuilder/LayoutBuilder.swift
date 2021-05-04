@@ -32,7 +32,7 @@ public extension UIView {
 }
 #endif
 
-infix operator !
+public infix operator !
 public func +(lhs: LayoutParts, rhs: CGFloat) -> LayoutParts { (lhs.view, lhs.attribute, rhs, lhs.multiplier) }
 public func -(lhs: LayoutParts, rhs: CGFloat) -> LayoutParts { (lhs.view, lhs.attribute, -rhs, lhs.multiplier) }
 public func *(lhs: CGFloat, rhs: LayoutParts) -> LayoutParts { (rhs.view, rhs.attribute, rhs.constant, lhs) }
@@ -75,20 +75,21 @@ public protocol ConstraintsGroup {
     
 }
 
-extension NSLayoutConstraint: ConstraintsGroup {
+public extension NSLayoutConstraint: ConstraintsGroup {
     
     public var constraints: [NSLayoutConstraint] { [self] }
     
 }
 
-extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
+public extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
     
     public var constraints: [NSLayoutConstraint] { self }
     
 }
 
+public
 @resultBuilder
-public struct LayoutBuilder {
+struct LayoutBuilder {
     
     public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap { $0.constraints } }
     public  static func buildOptional(_ component: [NSLayoutConstraint]?) -> [NSLayoutConstraint] { component.flatMap { $0.constraints } ?? [] }
