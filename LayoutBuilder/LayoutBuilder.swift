@@ -21,37 +21,45 @@
 //MARK: Operators
 
 infix operator ! : AdditionPrecedence
-public func +(lhs: LayoutParts, rhs: CGFloat) -> LayoutParts { (lhs.view, lhs.attribute, rhs, lhs.multiplier) }
-public func -(lhs: LayoutParts, rhs: CGFloat) -> LayoutParts { (lhs.view, lhs.attribute, -rhs, lhs.multiplier) }
-public func *(lhs: CGFloat, rhs: LayoutParts) -> LayoutParts { (rhs.view, rhs.attribute, rhs.constant, lhs) }
+public func +(lhs: LayoutAbstractParts, rhs: CGFloat) -> LayoutAbstractParts { LayoutParts(view: lhs.view, attribute: lhs.attribute, constant: rhs, multiplier: lhs.multiplier) }
+public func -(lhs: LayoutAbstractParts, rhs: CGFloat) -> LayoutAbstractParts { LayoutParts(view: lhs.view, attribute: lhs.attribute, constant: -rhs, multiplier: lhs.multiplier) }
+public func *(lhs: CGFloat, rhs: LayoutAbstractParts) -> LayoutAbstractParts { LayoutParts(view: rhs.view, attribute: rhs.attribute, constant: rhs.constant, multiplier: lhs) }
 public func !(lhs: NSLayoutConstraint, rhs: LayoutPriority) -> NSLayoutConstraint {
     let constraint = lhs
     constraint.priority = rhs
     return constraint
 }
 
-public func ==(lhs: LayoutParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .equal) }
-public func ==(lhs: LayoutParts, rhs: LayoutParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .equal) }
-public func >=(lhs: LayoutParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .greaterThanOrEqual) }
-public func >=(lhs: LayoutParts, rhs: LayoutParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .greaterThanOrEqual) }
-public func <=(lhs: LayoutParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .lessThanOrEqual) }
-public func <=(lhs: LayoutParts, rhs: LayoutParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .lessThanOrEqual) }
+public func ==(lhs: LayoutAbstractParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .equal) }
+public func ==(lhs: LayoutAbstractParts, rhs: LayoutAbstractParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .equal) }
+public func >=(lhs: LayoutAbstractParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .greaterThanOrEqual) }
+public func >=(lhs: LayoutAbstractParts, rhs: LayoutAbstractParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .greaterThanOrEqual) }
+public func <=(lhs: LayoutAbstractParts, rhs: CGFloat) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .lessThanOrEqual) }
+public func <=(lhs: LayoutAbstractParts, rhs: LayoutAbstractParts) -> NSLayoutConstraint { createConstraint(lhs: lhs, rhs: rhs, relation: .lessThanOrEqual) }
 
 //MARK: Support logic
 
-public typealias LayoutParts = (view: View, attribute: NSLayoutConstraint.Attribute, constant: CGFloat, multiplier: CGFloat)
+public struct LayoutParts {
+    
+    var view: View
+    var attribute: NSLayoutConstraint.Attribute
+    var constant: CGFloat
+    var multiplier: CGFloat
+    var priority: LayoutPriority = .required
+    
+}
 
 public extension View {
     
-    func layout(_ value: NSLayoutConstraint.Attribute) -> LayoutParts { (self, value, 0, 1) }
+    func layout(_ value: NSLayoutConstraint.Attribute) -> LayoutParts { .init(view: self, attribute: value, constant: 0, multiplier: 1) }
     
 }
 
-internal func createConstraint(lhs: LayoutParts, rhs: LayoutParts, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
-    .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: rhs.view, attribute: rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
+internal func createConstraint(lhs: LayoutAbstractParts, rhs: LayoutAbstractParts, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
+    .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: rhs.view, attribute: rhs.equalToLeftSideView ? lhs.attribute : rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
 }
 
-internal func createConstraint(lhs: LayoutParts, rhs: CGFloat, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
+internal func createConstraint(lhs: LayoutAbstractParts, rhs: CGFloat, relation: NSLayoutConstraint.Relation) -> NSLayoutConstraint {
     if [NSLayoutConstraint.Attribute.width, .height].contains(lhs.attribute) {
         return .init(item: lhs.view, attribute: lhs.attribute, relatedBy: relation, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: rhs)
     }
@@ -74,6 +82,38 @@ extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
 
     public var constraints: [NSLayoutConstraint] { self }
 
+}
+
+public protocol LayoutAbstractParts {
+    
+    var layoutParts: LayoutParts { get }
+    
+}
+
+extension LayoutAbstractParts {
+    
+    var view: View { layoutParts.view }
+    var attribute: NSLayoutConstraint.Attribute { layoutParts.attribute }
+    var constant: CGFloat { layoutParts.constant }
+    var multiplier: CGFloat { layoutParts.multiplier }
+    var priority: LayoutPriority { layoutParts.priority }
+    
+    var equalToLeftSideView: Bool { attribute == .notAnAttribute }
+    
+}
+
+extension LayoutParts: LayoutAbstractParts {
+     
+    public var layoutParts: LayoutParts { self }
+    
+}
+
+extension View: LayoutAbstractParts {
+    
+    public var layoutParts: LayoutParts {
+        .init(view: self, attribute: .notAnAttribute, constant: 0, multiplier: 1)
+    }
+    
 }
 
 //MARK: Layout Result Builder
