@@ -30,12 +30,11 @@ Layout {
     button.layout(.leading) == 20
 }
 ````
-It’s important to note that the equations shown in Note represent equality, not assignment.
 There are many ways to create constraints through a linear equation. We will consider them in the description below.
 
 ## Features
-- Clear linear equation way to creating NSLayoutConstraint.
-- Intuitive set of operators for using in the equation.
+- Clean linear equation way to creating NSLayoutConstraint.
+- An intuitive set of operators for using in the equation.
 - Flexible combinable parameters.
 - Simple constraints activation.
 - Ability to use conditional expressions in the constraint activation closure.
