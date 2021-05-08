@@ -9,6 +9,8 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
 ## Contents
 - [Overview](#overview)
 - [Features](#features)
+- [Requirements](#requirements)
+- [Communication](#communication)
 - [Installation](#installation)
 - [Explanation](#explanation)
 - [Credits](#credits)
@@ -23,6 +25,20 @@ A **LayoutBuilder** provides multiple operators to create **NSLayoutConstraint**
 - New constraint creation way, based on operators.
 - Based on a new Swift feature called Result Builder (ex Function Builder).
 - Allowed to use conditional statements inside **Layout** body to create flexible constraint scenario.
+
+## Requirements
+
+- iOS 9.0+ / Mac OS X 10.10+
+- Xcode 12.5+
+- Swift 5.4+
+
+## Communication
+
+- If you **need help**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/layoutbuilder). (Tag 'layoutbuilder')
+- If you'd like to **ask a general question**, use [Stack Overflow](http://stackoverflow.com/questions/tagged/layoutbuilder).
+- If you **found a bug**, open an issue.
+- If you **have a feature request**, open an issue.
+- If you **want to contribute**, submit a pull request.
 
 ## Installation
 
@@ -45,6 +61,22 @@ Then, run the following command:
 ```
 $ pod install
 ```
+
+### Swift Package Manager
+
+[Swift Package Manager](https://swift.org/package-manager/) is a tool for managing the distribution of Swift code. It’s integrated with the Swift build system to automate the process of downloading, compiling, and linking dependencies.
+
+> Xcode 12.5+ is required to build LayoutBuilder using Swift Package Manager.
+
+To integrate SnapKit into your Xcode project using Swift Package Manager, add it to the dependencies value of your `Package.swift`:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/multimediasuite/LayoutBuilder.git", .upToNextMajor(from: "0.5.1"))
+]
+```
+
+Or add dependency manually in Xcode. File -> Swift Packages -> Add Package Dependency... then enter the package URL 'https://github.com/multimediasuite/LayoutBuilder.git' and click Next button.
 
 ### Manually
 
