@@ -187,7 +187,28 @@ final class ViewController: UIViewController {
 
 #### Common constraint creation listing 
 ````swift
+//RedView.height EQUAL to CONSTANT 40
+redView.layout(.height) == 40
 
+//RedView.leading EQUAL to BlueView.trailing with CONSTANT 8
+redView.layout(.leading) == blueView.layout(.trailing) + 8
+
+//RedView.width EQUAL to BlueView.width with MULTIPLIER 0.5 and CONSTANT 20
+redView.layout(.width) == 0.5 * blueView + 20
+
+//RedView.centerY EQUAL to RedView.Superview
+redView.layout(.centerY) == 0
+
+//BlueView.width GREATER THAN OR EQUAL to RedView.width with PRIORITY defaultLow
+blueView.layout(.width) >= redView ! .defaultLow
+
+//BlueView.centerX LESS THAN OR EQUAL to BlueView.Superview with CONSTANT 20 and PRIORITY defaultHigh
+blueView.layout(.centerX) <= 20 ! .defaultHigh
+
+//RedView.centerX EQUAL to BlueView.top with MULTIPLIER 0.8 and CONSTANT 16 and PRIORITY defaultLow
+redView.layout(.centerX) == 0.8 * blueView.layout(.top) + 16 ! .defaultLow
+
+//etc...
 ````
 
 ## Credits
