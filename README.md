@@ -96,22 +96,24 @@ If you prefer not to use either of the aforementioned dependency managers, you c
 
 ## Explanation
 
-### Description
-
-I was inspired by the [Auto Layout Guide](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/AnatomyofaConstraint.html) to create a new operator-based way to create NSLayoutConstraint that will match the primary **LayoutBuilder** idea.
-
-![](https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/Art/view_formula_2x.png)
-
-So, full construction of operator-based constraint creation is 
+In Apple's documentation, each constraint is a linear equation with the following format:
 ````
-(leftSideView.layout(<NSLayoutConstraint.Attribute>) == multiplier * rightSideView.layout(<NSLayoutConstraint.Attribute>) + constant) ! UILayoutPriority
+item1.attribute1 = multiplier × item2.attribute2 + constant
 ````
-UIView was extended with `layout(_ attribute:)` method, where attribute is NSLayoutConstraint.Attribute.
-Call `view.layout(.attributeName)` for each side of layout creation operators.
+This is a convenient formula, and I put it at the heart of the framework with one more addition: priority operator `!`. So in LayoutBuilder framework final core equation has the following format: 
+````
+item1.attribute1 = multiplier × item2.attribute2 + constant ! priority
+````
+There is possible not to use unnecessary parameters on the right side of the equation if your context implies it.
+
+### Operatos
+There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
+Creation operators expects `firstItem` and` firstAttribute` at the left side and `secondItem` and` secondAttribute` at the right side. Also, you can use modification operators on the right side. Still, you need use them in the direct sequence: multiplier `*` -> constant `+` -> priority `!`. Finally, you not able to use the multiplier operator if you don't use item or item.attribute in the equation.
 
 There are multiple operators created for NSLayoutConstraint creation.
+
 | Operator | Description |
-| :--- | :--- |
+| :-: | :--- |
 | `==` | EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
 | `>=` | GREATER THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
 | `<=` | LESS THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
