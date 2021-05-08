@@ -47,17 +47,17 @@ extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
 
 //MARK: Layout Builder
 
-@resultBuilder
-public struct LayoutResultBuilder {
-    
-    public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
-    public  static func buildOptional(_ components: [ConstraintsGroup]?) -> [NSLayoutConstraint] { components?.flatMap(\.constraints) ?? [] }
-    public static func buildEither(first components: [ConstraintsGroup]) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
-    public static func buildEither(second components: [ConstraintsGroup]) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
-    
-}
-
 public struct Layout {
+
+    @resultBuilder
+    public struct LayoutResultBuilder {
+        
+        public static func buildBlock(_ components: ConstraintsGroup...) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
+        public  static func buildOptional(_ components: [ConstraintsGroup]?) -> [NSLayoutConstraint] { components?.flatMap(\.constraints) ?? [] }
+        public static func buildEither(first components: [ConstraintsGroup]) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
+        public static func buildEither(second components: [ConstraintsGroup]) -> [NSLayoutConstraint] { components.flatMap(\.constraints) }
+        
+    }
     
     @discardableResult
     public init(@LayoutResultBuilder _ build: () -> [NSLayoutConstraint]) {
