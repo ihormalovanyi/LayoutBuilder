@@ -14,6 +14,7 @@ And it is very flexible.
 - [Communication](#communication)
 - [Installation](#installation)
 - [Explanation](#explanation)
+- [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
@@ -105,7 +106,16 @@ This is a convenient formula, and I put it at the heart of the framework with on
 ````
 item1.attribute1 = multiplier × item2.attribute2 + constant ! priority
 ````
+> **Note**: It’s important to note that the equations shown above represent equality, not assignment.
+
 There is possible not to use unnecessary parameters on the right side of the equation if your context implies it.
+
+You must use an item with attribute at the left side of equation, and at the right side, you can use an item or item with attribute.
+Item is `UIView` or `NSView`. If you want to create an item with attribute, use `layout(_ :)` method of item: 
+````swift
+var itemWithAttribute = view.layout(.leading) //The result is LayoutItem object that contains view and attribute
+````
+> **Note**: If you use an item without an attribute on the right side, the second attribute will be the same as the first attribute.
 
 ### Operatos
 There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
@@ -114,94 +124,71 @@ Creation operators are the relationship operators at the same time and expects `
 #### Creation operators
 | Operator | Description |
 | :-: | :--- |
-| `==` | EQUAL operator. Use `==` after call `layout(_ attribute:)` method in the first view |
-| `>=` | GREATER THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
-| `<=` | LESS THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+| `==` | Equal operator. The result constraint requires the first attribute to be exactly equal to the modified second attribute. |
+| `>=` | Greater than or equal relation operator. The result constraint requires the first attribute to be greater than or equal to the modified second attribute. |
+| `<=` | Less than or equal operator. The result constraint requires the first attribute to be less than or equal to the modified second attribute. |
 
 #### Modification operators
 | Operator | Description |
-| `+` | Operator to add constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
-| `-` | Operator to add inversed constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
-| `*` | Operator to add multiplier to relation. Use before you call `layout(_ attribute:)` method in the second view |
-| `!` | Operator to add priority to the constraint. Use after your constraint vas created |
+| :-: | :--- |
+| `+` | Constant operator. Expects item or item with attribute at the left side and floating-point value at the right side. `0` by default. |
+| `-` | Negative Constant operator. Expects item or item with attribute at the left side and floating-point value at the right side. `0` by default. |
+| `*` | Multiplier operator. Expects floating-point value at the left side and item or item with attribute at the right side. `1` by default. |
+| `!` | Priority operator. Expects item or item with attribute or constant at the left side and Priority value at the right side. `.required` by default. |
 
-Call `Layout` initializer to apply constraints. Layout initializer's single parameter is a closure that uses Result Builder **LayoutBuilder** to accept multiple NSLayoutConstraints parameters.
+> **Note**: You can use floating-point value at the right side as the first parameter without multiplier operator and item or item with attribute. This will mean that the second attribute will be the same as the first attribute, and the superview of the first item will set as the second item (except when the first attribute is `.width` or `.height`).
 
-### Examples
+Call `Layout` initializer to activate constraints. Layout initializer's single parameter is a closure that uses Result Builder to accept multiple NSLayoutConstraints parameters. You can use conditional statements inside the closure. 
 
-1. Create redView and blueView properties and add them as subviews to the parent view
+### Usage
+
+#### Usage listing
 ````swift
-let redView = UIView()
-redView.backgroundColor = .red
+import UIKit
+import LayoutBuilder
+
+final class ViewController: UIViewController {
+    
+    lazy var redView = UIView()
+    lazy var blueView = UIView()
+    
+    var isBlueViewSizeEqualToRedView = true
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-let blueView = UIView()
-blueView.backgroundColor = .blue
+        view.addSubview(redView)
+        view.addSubview(blueView)
         
-view.addSubview(redView)
-view.addSubview(blueView)
-````
-2. Create constraints
-````swift
-//1
-let topConstraint = redView.layout(.top) == view.layout(.centerY) + 50 
-//2
-let leadingConstraint = redView.layout(.leading) == 20
-//3
-let centerXConstraint = (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
-//4
-let heightConstraint = redView.layout(.height) >= 33
-````
-So, we created 4 constraints. Top Constraint (1) was created using the relation between two views and adding constant to this relation. Leading Constraint (2) was created using the relation berween view and constant. Such an entry means that Red View automatically applies relation to its superview and adds constant. Center X Constraint (3) was created using the relation between two views, multiplier, constant, and priority. Height Constraint (4) was created using greaterThanOrEqual relation between view and constant. 
-
-3. Apply constraints 
-````swift
-Layout {
-    topConstraint
-    leadingConstraint
-    centerXConstraint
-    heightConstraint
-}
-````
-
-Also you can create constraints directly inside Layout body
-````swift
-Layout {
-    redView.layout(.top) == view.layout(.centerY) + 50
-    redView.layout(.leading) == 20
-    (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
-    redView.layout(.height) >= 33
-}
-````
-
-And finaly, you can create and use properties inside Layout body
-````swift
-Layout {
-    redView.layout(.top) == view.layout(.centerY) + 50
-    redView.layout(.leading) == 20
-    (redView.layout(.centerX) == 1/2 * view.layout(.centerX) + 10) ! .defaultLow
+        redView.backgroundColor = .red
+        blueView.backgroundColor = .blue
+        
+        Layout {
+            redView.layout(.height) == 100
+            redView.layout(.width) == 0.5 * view
+            redView.layout(.centerX) == 0
+            redView.layout(.centerY) == view
             
-    let heightConstraint = redView.layout(.height) >= 33            
-    heightConstraint
-}
-````
-
-4. Using conditional statements inside Layout body
-````
-Layout {
-    if needTopConstraint {
-        redView.layout(.top) == view.layout(.centerY) + 50
-    } else {
-        redView.layout(.centerY) == view.layout(.centerY)
+            if isBlueViewSizeEqualToRedView {
+                blueView.layout(.width) == redView
+                blueView.layout(.height) == redView
+            } else {
+                blueView.layout(.width) >= 0.2 * redView + 10
+                blueView.layout(.height) == redView.layout(.width)
+            }
+            
+            blueView.layout(.bottom) == view.layout(.centerY) + 100
+            blueView.layout(.centerX) == 0
+        }
     }
-            
-    redView.layout(.leading) == 20
-            
-    if let blueView = blueView {
-        blueView.layout(.leading) == 20
-    }
+    
 }
 ````
-You can use conditional statements and optional chaining inside Layout body. It provides a really flexible way to constraint building.
+
+#### Common constraint creation listing 
+````swift
+
+````
 
 ## Credits
 
