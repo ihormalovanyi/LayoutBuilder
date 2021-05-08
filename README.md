@@ -22,7 +22,7 @@ And it is very flexible.
 
 LayoutBuilder is a set of structures, extensions, and operators that allows you to create NSLayoutConstraint using a linear equation. For example, if you want to create horizontal relation between a button and its superview, you need to write a simple line of code:
 ````swift
-let constraint = button.layout(.leading) = 20
+let constraint = button.layout(.leading) == 20
 ````
 The result of this line will be NSLayoutConstraint. You can use Layout initializer with closure parameter that uses an internal ResultBuilder (ex FunctionBuilder) to activate constraints: 
 ````swift
