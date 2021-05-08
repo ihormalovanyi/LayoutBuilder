@@ -1,5 +1,4 @@
 <img src="https://ihor.pro/wp-content/uploads/2021/05/layoutbuilder_image_header-2.jpg" alt="" />
-" alt="" />
 
 LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way. LayoutBuilder is based on the newest Swift features and works with simple operators.
 
