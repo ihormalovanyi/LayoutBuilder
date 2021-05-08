@@ -81,7 +81,7 @@ $ pod install
 
 > Xcode 12.5+ is required to build LayoutBuilder using Swift Package Manager.
 
-To integrate SnapKit into your Xcode project using Swift Package Manager, add it to the dependencies value of your `Package.swift`:
+To integrate LayoutBuilder into your Xcode project using Swift Package Manager, add it to the dependencies value of your `Package.swift`:
 
 ```swift
 dependencies: [
