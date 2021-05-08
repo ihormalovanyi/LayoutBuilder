@@ -29,6 +29,7 @@ Layout {
     button.layout(.leading) == 20
 }
 ````
+It’s important to note that the equations shown in Note represent equality, not assignment.
 There are many ways to create constraints through a linear equation. We will consider them in the description below.
 
 ## Features
@@ -108,15 +109,17 @@ There is possible not to use unnecessary parameters on the right side of the equ
 
 ### Operatos
 There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
-Creation operators expects `firstItem` and` firstAttribute` at the left side and `secondItem` and` secondAttribute` at the right side. Also, you can use modification operators on the right side. Still, you need use them in the direct sequence: multiplier `*` -> constant `+` -> priority `!`. Finally, you not able to use the multiplier operator if you don't use item or item.attribute in the equation.
+Creation operators are the relationship operators at the same time and expects `firstItem` and` firstAttribute` at the left side and `secondItem` and` secondAttribute` at the right side. Also, you can use modification operators on the right side. Still, you need use them in the direct sequence: multiplier `*` -> constant `+` -> priority `!`. Finally, you not able to use the multiplier operator if you don't use item or item.attribute in the equation.
 
-There are multiple operators created for NSLayoutConstraint creation.
-
+#### Creation operators
 | Operator | Description |
 | :-: | :--- |
-| `==` | EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+| `==` | EQUAL operator. Use `==` after call `layout(_ attribute:)` method in the first view |
 | `>=` | GREATER THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
 | `<=` | LESS THAN OR EQUAL relation operator. Use `==` after call `layout(_ attribute:)` method in the first view |
+
+#### Modification operators
+| Operator | Description |
 | `+` | Operator to add constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
 | `-` | Operator to add inversed constant to relation. Use after you call `layout(_ attribute:)` method in the second view |
 | `*` | Operator to add multiplier to relation. Use before you call `layout(_ attribute:)` method in the second view |
