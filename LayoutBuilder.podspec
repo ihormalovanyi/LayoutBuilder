@@ -23,7 +23,7 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
 
 
   spec.source       = { :git => "https://github.com/multimediasuite/LayoutBuilder.git", :tag => "#{spec.version}" }
-  spec.source_files  = "LayoutBuilder/**/*.{h,m,swift}"
+  spec.source_files  = "Sources/LayoutBuilder/**/*.{h,m,swift}"
 
   # spec.public_header_files = "Classes/**/*.h"
 
