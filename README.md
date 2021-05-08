@@ -116,7 +116,7 @@ var itemWithAttribute = view.layout(.leading) //The result is LayoutItem object 
 ````
 > **Note**: If you use an item without an attribute on the right side, the second attribute will be the same as the first attribute.
 
-### Operatos
+### Operators
 There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
 Creation operators are the relationship operators at the same time and expects `firstItem` and` firstAttribute` at the left side and `secondItem` and` secondAttribute` at the right side. Also, you can use modification operators on the right side. Still, you need use them in the direct sequence: multiplier `*` -> constant `+` -> priority `!`. Finally, you not able to use the multiplier operator if you don't use item or item.attribute in the equation.
 
