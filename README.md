@@ -1,6 +1,7 @@
 <img src="https://ihor.pro/wp-content/uploads/2021/05/layoutbuilder_image_header-2.jpg" alt="" />
 
-LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way. LayoutBuilder is based on the newest Swift features and works with simple operators.
+LayoutBuilder is an operator-based layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
+And it is very flexible.
 
 ![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS-blue)
 [![Swift 5.4](https://img.shields.io/badge/Swift-5.4-orange.svg?style=flat)](https://developer.apple.com/swift/)
@@ -17,14 +18,25 @@ LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way
 - [License](#license)
 
 ## Overview
-A **LayoutBuilder** framework provides a [Layout] structure (#layoutstruct) that uses its init method with a **LayoutBuilder** Result Builder structure to catch NSLayoutConstraint collection in closure and apply them after.
 
-A **LayoutBuilder** provides multiple operators to create **NSLayoutConstraint** in a new clear way. You can also create your own NSLayoutConstraint-s or use constraints created earlier.
+LayoutBuilder is a set of structures, extensions, and operators that allows you to create NSLayoutConstraint using a linear equation. For example, if you want to create horizontal relation between a button and its superview, you need to write a simple line of code:
+````swift
+let constraint = button.layout(.leading) = 20
+````
+The result of this line will be NSLayoutConstraint. You can use Layout initializer with closure parameter that uses an internal ResultBuilder (ex FunctionBuilder) to activate constraints: 
+````swift
+Layout {
+    button.layout(.leading) == 20
+}
+````
+There are many ways to create constraints through a linear equation. We will consider them in the description below.
 
 ## Features
-- New constraint creation way, based on operators.
-- Based on a new Swift feature called Result Builder (ex Function Builder).
-- Allowed to use conditional statements inside **Layout** body to create flexible constraint scenario.
+- Clear linear equation way to creating NSLayoutConstraint.
+- Intuitive set of operators for using in the equation.
+- Flexible combinable parameters.
+- Simple constraints activation.
+- Ability to use conditional expressions in the constraint activation closure.
 
 ## Requirements
 
