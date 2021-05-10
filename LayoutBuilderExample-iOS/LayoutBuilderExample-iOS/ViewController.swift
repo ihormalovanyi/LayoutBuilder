@@ -8,73 +8,133 @@
 import UIKit
 import LayoutBuilder
 
-final class ViewController: UIViewController {
+class ViewController: UIViewController {
 
-    private lazy var redView = UIView()
-    private lazy var blueView = UIView()
+    lazy var blackView = UIView()
+    lazy var grayView = UIView()
+    lazy var lightGrayView = UIView()
+    lazy var label = UILabel()
+    lazy var nextButton = UIButton()
+    
+    var colorViewsLayout: Layout!
+    var buttonLayout: Layout!
+    
+    var isBlacSquare = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        redView.backgroundColor = .red
-        blueView.backgroundColor = .blue
+        nextButton.alpha = 0
+        nextButton.setTitle("Next", for: .normal)
+        nextButton.titleLabel?.font = .systemFont(ofSize: 20, weight: .semibold)
+        nextButton.setTitleColor(.systemPink, for: .normal)
         
-        view.addSubview(redView)
-        view.addSubview(blueView)
+        label.font = .systemFont(ofSize: 14)
         
-        applySecondLayout()
+        grayView.backgroundColor = .gray
+        blackView.backgroundColor = .black
+        lightGrayView.backgroundColor = .lightGray
+        
+        nextButton.addTarget(self, action: #selector(nextAction), for: .touchUpInside)
+        
+        blackView.alpha = 0
+        label.alpha = 0
+        
+        view.addSubview(blackView)
+        view.addSubview(grayView)
+        view.addSubview(lightGrayView)
+        view.addSubview(label)
+        view.addSubview(nextButton)
+        
+        layoutLabel()
+        setupButtonFirstPosition()
+        applyBlackSquare()
     }
     
-    private func applyFirstLayout() {
-        //Vertical Constraints
-        let redTopToSuperviewTop = redView.layout(.top) == view.layout(.top) + 20
-        let superviewBottomToRedBottom = view.layout(.bottom) == redView + 20
-        let blueTopToSuperviewTop = blueView.layout(.top) == 20
-        let blueBottomToSuperviewBottom = blueView.layout(.bottom) == view.layout(.bottom) - 20
-
-        //Horizontal Constraints
-        let redLeadingToSuperviewLeading = redView.layout(.leading) == 20
-        let blueLeadingToRedTrailing = blueView.layout(.leading) == redView.layout(.trailing) + 8
-        let blueTrailingToSuperviewTrailing = blueView.layout(.trailing) == -20
-        let redWidthToBlueWidthWithMultiplier = (redView.layout(.width) ==  blueView) ! .defaultLow
-        let redWidthLessThenOrEqual = (redView.layout(.width) <= UIScreen.main.bounds.width / 2) ! .defaultHigh
-        
-        //Applying
+    private func layoutLabel() {
+        //Setup label constraints with no-instance Layout
         Layout {
-            redTopToSuperviewTop
-            superviewBottomToRedBottom
-            blueTopToSuperviewTop
-            blueBottomToSuperviewBottom
-            redLeadingToSuperviewLeading
-            blueLeadingToRedTrailing
-            blueTrailingToSuperviewTrailing
-            redWidthToBlueWidthWithMultiplier
-            redWidthLessThenOrEqual
+            label.layout(.top) == blackView.layout(.bottom) + 15
+            label.layout(.left) == blackView
         }
     }
     
-    private func applySecondLayout() {
-        Layout {
-            let equalWidths = Bool.random()
+    private func setupButtonFirstPosition() {
+        //Create Layout instance for the button with start position constraints
+        buttonLayout = Layout {
+            nextButton.layout(.top) == view.layout(.bottom)
+            nextButton.layout(.centerX) == 0
+        }
+    }
+    
+    private func applyBlackSquare() {
+        label.text = "Kazimir Malevich, Black Square, 1915"
+        
+        //Initialize Layout with start constraints of black square
+        colorViewsLayout = Layout {
+            blackView.layout(.centerX) == 0
+            blackView.layout(.centerY) == -100
+            blackView.layout(.size) == 0.7 * view.layout(.width)
+        }
+        
+        UIView.animate(withDuration: 1) {
+            self.blackView.alpha = 1
+            self.label.alpha = 1
+        } completion: { _ in
+            self.showButton()
+        }
+    }
+    
+    private func showButton() {
+        //Rebuild button Layout for new position constraints
+        buttonLayout.rebuild {
+            nextButton.layout(.lastBaseline) == -50
+            nextButton.layout(.centerX) == 0
+        }
+        
+        UIView.animate(withDuration: 1) {
+            self.nextButton.alpha = 1
+            self.view.layoutIfNeeded()
+        }
+    }
+    
+    func rebuildLayout() {
+        //Rebuild color views Layout based on isBlacSquare value
+        colorViewsLayout.rebuild {
+            blackView.layout(.centerX) == 0
+            blackView.layout(.centerY) == -100 ! .defaultLow
+            blackView.layout(.size) == 0.7 * view.layout(.width) ! .defaultLow
             
-            //Horizontal Constraints
-            redView.layout(.leading) == 20
-            redView.layout(.trailing) == blueView.layout(.leading) - 8
-            blueView.layout(.trailing) == -20
-            if equalWidths {
-                blueView.layout(.width) == redView
+            if isBlacSquare {
+                grayView.layout(.top) == blackView
+                grayView.layout(.centerX) == blackView
+                lightGrayView.layout(.top) == 0
+                lightGrayView.layout(.centerX) == 0
             } else {
-                blueView.layout(.width) == ([0.3, 0.5, 0.9, 1].randomElement() ?? 1) * redView.layout(.width)
+                grayView.layout(.center) == blackView
+                grayView.layout(.size) == 0.7 * blackView
+                
+                for attribute in [NSLayoutConstraint.Attribute.centerX, .top] {
+                    lightGrayView.layout(attribute) == grayView
+                }
+                
+                lightGrayView.layout(.width) == 0.25 * grayView.layout(.height) + 20
+                lightGrayView.layout(.centerY) == blackView
+                
+                blackView.layout(.top) == 0
+                blackView.layout(.size) == view
             }
-            
-            //Vertical Constraints
-            redView.layout(.top) == blueView
-            redView.layout(.centerY) == 0
-            blueView.layout(.top) == 20
-            blueView.layout(.centerY) == redView - 20
+        }
+        
+        UIView.animate(withDuration: 1) {
+            self.view.layoutIfNeeded()
         }
     }
-
-
+    
+    @objc private func nextAction() {
+        isBlacSquare.toggle()
+        nextButton.setTitle(isBlacSquare ? "Next" : "Previous", for: .normal)
+        rebuildLayout()
+    }
+    
 }
-

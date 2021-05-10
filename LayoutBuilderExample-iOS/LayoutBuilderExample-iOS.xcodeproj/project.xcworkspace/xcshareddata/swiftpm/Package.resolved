@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "LayoutBuilder",
+        "repositoryURL": "https://github.com/multimediasuite/LayoutBuilder",
+        "state": {
+          "branch": null,
+          "revision": "4060a4b4db0759a32b792dfe42b2b9d53db29dcd",
+          "version": "0.9.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
