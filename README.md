@@ -38,6 +38,7 @@ There are many ways to create constraints through a linear equation. We will con
 - Flexible combinable parameters.
 - Simple constraints activation.
 - Ability to use conditional expressions in the constraint activation closure.
+- Convenient way to update Layout.
 
 ## Requirements
 
@@ -115,6 +116,26 @@ Item is `UIView` or `NSView`. If you want to create an item with attribute, use 
 var itemWithAttribute = view.layout(.leading) //The result is LayoutItem object that contains view and attribute
 ````
 > **Note**: If you use an item without an attribute on the right side, the second attribute will be the same as the first attribute.
+
+### Layout
+`Layout` is a class that uses `LayoutResultBuilder` to create and control constraints in its context. There are multiple properties and functions you can use to make your layout experience more flexible.
+
+#### Layout properties
+| Property | Description |
+| :--- | :--- |
+| `isActive` | Layout active status. Shows built constraints are active or not. Defines that all new constraints will be active or not. True by default |
+| `constraints` | Contains all constraints in a Layout instance |
+
+#### Layout functions
+| Function | Description |
+| :--- | :--- |
+| `init(_ :)` | Layout initializer that has one parameter - `LayoutResultBuilder` closure. Creates a Layout instance and activates constraints from the build block. |
+| `rebuild(_ :)` | Deactivates all constraints previously built in the Layout instance and replaces them with new constraints build. Activates them if `isActive` is true. |
+| `append(_ :)` | Appends new constraints to exist in the Layout instance constraints. Activates them if `isActive` is true. |
+| `activate()` | Activates all constraints in the Layout instance |
+| `deactivate()` | Deactivates all constraints in the Layout instance |
+
+> **Note**: You can call Layout initializer without assigning its result to property. It activates all constraints you added in the building block, but you can't have direct access to constraints and Layout functions. 
 
 ### Operators
 There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
