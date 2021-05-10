@@ -1,6 +1,6 @@
 <img src="https://ihor.pro/wp-content/uploads/2021/05/layoutbuilder_image_header-2.jpg" alt="" />
 
-LayoutBuilder is an operator-based layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
+LayoutBuilder is an operator-based DSL layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
 And it is very flexible.
 
 ![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS-blue)
@@ -38,6 +38,7 @@ There are many ways to create constraints through a linear equation. We will con
 - Flexible combinable parameters.
 - Simple constraints activation.
 - Ability to use conditional expressions in the constraint activation closure.
+- Convenient way to update Layout.
 
 ## Requirements
 
@@ -115,6 +116,26 @@ Item is `UIView` or `NSView`. If you want to create an item with attribute, use 
 var itemWithAttribute = view.layout(.leading) //The result is LayoutItem object that contains view and attribute
 ````
 > **Note**: If you use an item without an attribute on the right side, the second attribute will be the same as the first attribute.
+
+### Layout
+`Layout` is a class that uses `LayoutResultBuilder` to create and control constraints in its context. There are multiple properties and functions you can use to make your layout experience more flexible.
+
+#### Layout properties
+| Property | Description |
+| :--- | :--- |
+| `isActive` | Layout active status. Shows built constraints are active or not. Defines that all new constraints will be active or not. True by default |
+| `constraints` | Contains all constraints in a Layout instance |
+
+#### Layout functions
+| Function | Description |
+| :--- | :--- |
+| `init(_ :)` | Layout initializer that has one parameter - `LayoutResultBuilder` closure. Creates a Layout instance and activates constraints from the build block. |
+| `rebuild(_ :)` | Deactivates all constraints previously built in the Layout instance and replaces them with new constraints build. Activates them if `isActive` is true. |
+| `append(_ :)` | Appends new constraints to exist in the Layout instance constraints. Activates them if `isActive` is true. |
+| `activate()` | Activates all constraints in the Layout instance |
+| `deactivate()` | Deactivates all constraints in the Layout instance |
+
+> **Note**: You can call Layout initializer without assigning its result to property. It activates all constraints you added in the building block, but you can't have direct access to constraints and Layout functions. 
 
 ### Operators
 There are multiple operators for NSLayoutConstraint creation. They can be divided into two groups: creation and modification operators. 
@@ -208,6 +229,36 @@ blueView.layout(.centerX) <= 20 ! .defaultHigh
 redView.layout(.centerX) == 0.8 * blueView.layout(.top) + 16 ! .defaultLow
 
 //etc...
+````
+
+#### Common cases of Layout instance using
+````swift
+//Create with constraints
+let layout = Layout {
+    redView.layout(.left) == 0
+    redView.layout(.top) == 0
+    redView.layout(.width) == 100
+    redView.layout(.height) == 100
+}
+        
+//Remove all constraints activated in the Layout instance before and add new constraints
+layout.rebuild {
+    redView.layout(.left) == 100
+    redView.layout(.top) == 200
+    redView.layout(.width) == 300
+    redView.layout(.height) == 400
+}
+        
+//Append new constraints
+layout.append {
+    blueView.layout(.leading) == redView.layout(.trailing)
+}
+        
+//Activate all constraints in the Layout instance
+layout.activate()
+  
+//Deactivate all constraints in the Layout instance
+layout.deactivate()
 ````
 
 ## Credits
