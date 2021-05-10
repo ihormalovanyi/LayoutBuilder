@@ -1,6 +1,6 @@
 <img src="https://ihor.pro/wp-content/uploads/2021/05/layoutbuilder_image_header-2.jpg" alt="" />
 
-LayoutBuilder is an operator-based layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
+LayoutBuilder is an operator-based DSL layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
 And it is very flexible.
 
 ![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20macOS%20%7C%20watchOS%20%7C%20tvOS-blue)
