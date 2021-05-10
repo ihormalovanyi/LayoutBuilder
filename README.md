@@ -231,6 +231,36 @@ redView.layout(.centerX) == 0.8 * blueView.layout(.top) + 16 ! .defaultLow
 //etc...
 ````
 
+#### Common cases of Layout instance using
+````swift
+//Create with constraints
+let layout = Layout {
+    redView.layout(.left) == 0
+    redView.layout(.top) == 0
+    redView.layout(.width) == 100
+    redView.layout(.height) == 100
+}
+        
+//Remove all constraints activated in the Layout instance before and add new constraints
+layout.rebuild {
+    redView.layout(.left) == 100
+    redView.layout(.top) == 200
+    redView.layout(.width) == 300
+    redView.layout(.height) == 400
+}
+        
+//Append new constraints
+layout.append {
+    blueView.layout(.leading) == redView.layout(.trailing)
+}
+        
+//Activate all constraints in the Layout instance
+layout.activate()
+  
+//Deactivate all constraints in the Layout instance
+layout.deactivate()
+````
+
 ## Credits
 
 - Ihor Malovanyi ([@multimediasuite](https://www.facebook.com/multimediasuite))
