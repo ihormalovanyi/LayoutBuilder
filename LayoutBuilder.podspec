@@ -1,11 +1,12 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "LayoutBuilder"
-  spec.version      = "0.5.1"
-  spec.summary      = "LayoutBuilder is a modern and clear Layout based on new Swift features."
+  spec.version      = "0.6.0"
+  spec.summary      = "LayoutBuilder is an operator-based DSL layout relationship builder"
 
   spec.description  = <<-DESC
-LayoutBuilder helps you to apply advanced Auto Layout in a modern and simple way. LayoutBuilder is based on the newest Swift features and works with simple operators.
+LayoutBuilder is an operator-based DSL layout relationship builder. It allows you to create constraints programmatically simpler and more elegant than ever. 
+And it is very flexible.
                    DESC
 
   spec.homepage     = "https://github.com/multimediasuite/LayoutBuilder"
