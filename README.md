@@ -164,6 +164,19 @@ Creation operators are the relationship operators at the same time and expects `
 
 Call `Layout` initializer to activate constraints. Layout initializer's single parameter is a closure that uses Result Builder to accept multiple NSLayoutConstraints parameters. You can use conditional statements inside the closure. You can use for-in cycle inside the closure.
 
+#### Attribute sets
+In addition to attributes, you can use a set of attributes in an equation. Just like attributes, attribute sets are used in the `.layout(_ :)` method of view. But there is one difference. If you use a set of attributes instead of a single attribute on the left side of the equation, you cannot specify a view with attribute on the right side, only a view. But modification parameters are staying similar.
+
+| Set name | Attributes |
+| :-: | :--- |
+| `edges` | `.top`, `.left`, `.right`, `.bottom` |
+| `horizontal` | `.left`, `.right` |
+| `vertical` | `.top`, `.bottom` |
+| `size` | `.width`, `.height` |
+| `center` | `.centerX`, `.centerY` |
+
+> **Note**: If you use attribute set in `layout(_ :)` method, attributes will accept constants from the equation as inset constants. It means that constants for `.right` and `.bottom` attributes will be reversed for keeping view "in the box" when you use attribute sets that contain `.right` and `.bottom` attributes.
+
 ### Usage
 
 #### Usage listing
