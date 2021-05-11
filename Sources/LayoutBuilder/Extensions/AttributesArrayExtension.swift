@@ -19,6 +19,4 @@ public extension Array where Element == NSLayoutConstraint.Attribute {
     static var size: [NSLayoutConstraint.Attribute] { [.width, .height] }
     static var center: [NSLayoutConstraint.Attribute] { [.centerX, .centerY] }
     
-    static func custom(_ attributes: NSLayoutConstraint.Attribute...) -> [NSLayoutConstraint.Attribute] { attributes }
-    
 }
