@@ -11,27 +11,33 @@
     import AppKit
 #endif
 
-extension LayoutCGFloat {
+public protocol LBCGFloat {
     
-    public var layoutRelationItem: LayoutRelationItem {
+    var cgFloatValue: CGFloat { get }
+    
+}
+
+extension LBCGFloat {
+    
+    public var layoutRelationItem: LBLayoutRelationItem {
         .init(view: nil, attribute: .notAnAttribute, constant: cgFloatValue, multiplier: 1, priority: .required)
     }
     
 }
 
-extension CGFloat: LayoutCGFloat {
+extension CGFloat: LBCGFloat {
     
     public var cgFloatValue: CGFloat { self }
     
 }
 
-extension Double: LayoutCGFloat {
+extension Double: LBCGFloat {
     
     public var cgFloatValue: CGFloat { CGFloat(self) }
     
 }
 
-extension Int: LayoutCGFloat {
+extension Int: LBCGFloat {
     
     public var cgFloatValue: CGFloat { CGFloat(self) }
     

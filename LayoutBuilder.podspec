@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "LayoutBuilder"
-  spec.version      = "0.9.2"
+  spec.version      = "0.9.3"
   spec.summary      = "LayoutBuilder is an operator-based DSL layout relationship builder"
 
   spec.description  = <<-DESC

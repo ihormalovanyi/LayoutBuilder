@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8786F367264A9B6A00214342 /* LayoutBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 8786F366264A9B6A00214342 /* LayoutBuilder */; };
 		87A56DFE2641DE4B0088205E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A56DFD2641DE4B0088205E /* AppDelegate.swift */; };
 		87A56E002641DE4B0088205E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A56DFF2641DE4B0088205E /* SceneDelegate.swift */; };
 		87A56E022641DE4B0088205E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87A56E012641DE4B0088205E /* ViewController.swift */; };
 		87A56E052641DE4B0088205E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A56E032641DE4B0088205E /* Main.storyboard */; };
 		87A56E072641DE4C0088205E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 87A56E062641DE4C0088205E /* Assets.xcassets */; };
 		87A56E0A2641DE4C0088205E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 87A56E082641DE4C0088205E /* LaunchScreen.storyboard */; };
-		87D7C9282649D43900CF6580 /* LayoutBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 87D7C9272649D43900CF6580 /* LayoutBuilder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,18 +32,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				87D7C9282649D43900CF6580 /* LayoutBuilder in Frameworks */,
+				8786F367264A9B6A00214342 /* LayoutBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8786F365264A9B6A00214342 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		87A56DF12641DE4B0088205E = {
 			isa = PBXGroup;
 			children = (
 				87A56DFC2641DE4B0088205E /* LayoutBuilderExample-iOS */,
 				87A56DFB2641DE4B0088205E /* Products */,
+				8786F365264A9B6A00214342 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,7 +94,7 @@
 			);
 			name = "LayoutBuilderExample-iOS";
 			packageProductDependencies = (
-				87D7C9272649D43900CF6580 /* LayoutBuilder */,
+				8786F366264A9B6A00214342 /* LayoutBuilder */,
 			);
 			productName = "LayoutBuilderExample-iOS";
 			productReference = 87A56DFA2641DE4B0088205E /* LayoutBuilderExample-iOS.app */;
@@ -362,7 +370,7 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		87D7C9272649D43900CF6580 /* LayoutBuilder */ = {
+		8786F366264A9B6A00214342 /* LayoutBuilder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 87D7C9262649D43900CF6580 /* XCRemoteSwiftPackageReference "LayoutBuilder" */;
 			productName = LayoutBuilder;

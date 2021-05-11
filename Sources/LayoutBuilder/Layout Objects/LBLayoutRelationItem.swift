@@ -11,12 +11,12 @@
     import AppKit
 #endif
 
-public struct LayoutRelationItem {
+public struct LBLayoutRelationItem {
     
     var view: View?
     var attribute: NSLayoutConstraint.Attribute = .notAnAttribute
-    var constant: LayoutCGFloat = 0
-    var multiplier: LayoutCGFloat = 1
+    var constant: LBCGFloat = 0
+    var multiplier: LBCGFloat = 1
     var priority: LayoutPriority = .required
     
 }

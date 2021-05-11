@@ -59,7 +59,7 @@ class LayoutBuilderTests: XCTestCase {
     //MARK: Layout Relation Item creation test
     
     func testLayoutCreationItem() throws {
-        let result = LayoutRelationItem(view: nil)
+        let result = LBLayoutRelationItem(view: nil)
         XCTAssert(result.attribute == .notAnAttribute &&
                     result.constant.cgFloatValue == 0.0 &&
                     result.multiplier.cgFloatValue == 1 &&

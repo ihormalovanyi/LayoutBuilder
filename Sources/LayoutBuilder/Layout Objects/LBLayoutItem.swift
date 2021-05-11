@@ -11,24 +11,24 @@
     import AppKit
 #endif
 
-public struct LayoutItem {
+public struct LBLayoutItem {
     
     var view: View
     var attribute: NSLayoutConstraint.Attribute
     
-    func equal(to relationItem: LayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
+    func equal(to relationItem: LBLayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
         makeConstraint(item: self, relationItem: relationItem, relation: .equal, inset: inset)
     }
     
-    func greaterThanOrEqual(to relationItem: LayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
+    func greaterThanOrEqual(to relationItem: LBLayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
         makeConstraint(item: self, relationItem: relationItem, relation: .greaterThanOrEqual, inset: inset)
     }
     
-    func lessThanOrEqual(to relationItem: LayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
+    func lessThanOrEqual(to relationItem: LBLayoutRelationItem, inset: Bool = false) -> NSLayoutConstraint {
         makeConstraint(item: self, relationItem: relationItem, relation: .lessThanOrEqual, inset: inset)
     }
     
-    internal func makeConstraint(item: LayoutItem, relationItem: LayoutRelationItem, relation: NSLayoutConstraint.Relation, inset: Bool = false) -> NSLayoutConstraint {
+    internal func makeConstraint(item: LBLayoutItem, relationItem: LBLayoutRelationItem, relation: NSLayoutConstraint.Relation, inset: Bool = false) -> NSLayoutConstraint {
         var relationView = relationItem.view
         var relationAttribute = relationItem.attribute == .notAnAttribute ? item.attribute : relationItem.attribute
         let isRevercedAttribute = [NSLayoutConstraint.Attribute.right, .bottom].contains(relationAttribute)
