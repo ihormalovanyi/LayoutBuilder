@@ -106,12 +106,16 @@ This is a convenient formula, and I put it at the heart of the framework with on
 ````
 item1.attribute1 = multiplier × item2.attribute2 + constant ! priority
 ````
+And there is a similar equation for creating an array of constraints (for attribute sets):
+````swift
+item.attributeSet = multiplier * item2 + constant ! priority
+````
 > **Note**: It’s important to note that the equations shown above represent equality, not assignment.
 
 There is possible not to use unnecessary parameters on the right side of the equation if your context implies it.
 
-You must use an item with attribute at the left side of equation, and at the right side, you can use an item or item with attribute.
-Item is `UIView` or `NSView`. If you want to create an item with attribute, use `layout(_ :)` method of item: 
+You must use an item with attribute at the left side of equation, and at the right side, you can use an item or item with attribute (except for using attribute set at the left side).
+Item is `UIView` or `NSView`. If you want to create an item with attribute or attribute set, use `layout(_ :)` method of item: 
 ````swift
 var itemWithAttribute = view.layout(.leading) //The result is LayoutItem object that contains view and attribute
 ````
@@ -158,7 +162,7 @@ Creation operators are the relationship operators at the same time and expects `
 
 > **Note**: You can use floating-point value at the right side as the first parameter without multiplier operator and item or item with attribute. This will mean that the second attribute will be the same as the first attribute, and the superview of the first item will set as the second item (except when the first attribute is `.width` or `.height`).
 
-Call `Layout` initializer to activate constraints. Layout initializer's single parameter is a closure that uses Result Builder to accept multiple NSLayoutConstraints parameters. You can use conditional statements inside the closure. 
+Call `Layout` initializer to activate constraints. Layout initializer's single parameter is a closure that uses Result Builder to accept multiple NSLayoutConstraints parameters. You can use conditional statements inside the closure. You can use for-in cycle inside the closure.
 
 ### Usage
 
@@ -190,8 +194,7 @@ final class ViewController: UIViewController {
             redView.layout(.centerY) == view
             
             if isBlueViewSizeEqualToRedView {
-                blueView.layout(.width) == redView
-                blueView.layout(.height) == redView
+                blueView.layout(.size) == redView
             } else {
                 blueView.layout(.width) >= 0.2 * redView + 10
                 blueView.layout(.height) == redView.layout(.width)
@@ -227,6 +230,12 @@ blueView.layout(.centerX) <= 20 ! .defaultHigh
 
 //RedView.centerX EQUAL to BlueView.top with MULTIPLIER 0.8 and CONSTANT 16 and PRIORITY defaultLow
 redView.layout(.centerX) == 0.8 * blueView.layout(.top) + 16 ! .defaultLow
+
+//RedView.edges EQUAL tp RedView.Superview.edges with CONSTANT 20 and PRIORITY .defaultLow
+redView.layout(.edges) == 20 ! .defaultLow
+
+//BlueView.size EQUAL tp RedView.size with CONSTANT 20
+blueView.layout(.size) == redView + 20
 
 //etc...
 ````
