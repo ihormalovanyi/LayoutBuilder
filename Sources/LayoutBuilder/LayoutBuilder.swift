@@ -11,13 +11,32 @@
     import AppKit
 #endif
 
+public protocol ConstraintsGroup {
+
+    var constraints: [NSLayoutConstraint] { get }
+
+}
+
+extension NSLayoutConstraint: ConstraintsGroup {
+
+    public var constraints: [NSLayoutConstraint] { [self] }
+
+}
+
+extension Array: ConstraintsGroup where Element == NSLayoutConstraint {
+
+    public var constraints: [NSLayoutConstraint] { self }
+
+}
+
+
 public class Layout {
 
     ///All constraints in the Layout instance
     private(set) var constraints: [NSLayoutConstraint] = []
     
     ///Layout active status. Shows built constraints are active or not
-    private(set) var isActive = true {
+    public var isActive = true {
         didSet {
             constraints.forEach { $0.isActive = isActive }
         }
@@ -53,28 +72,13 @@ public class Layout {
     
     ///Deactivates all constraints previously built in the Layout instance and replaces them with new constraints build.
     public func rebuild(@LayoutResultBuilder _ build: () -> [NSLayoutConstraint]) {
-        let oldActiveStatus = isActive
-        deactivate()
-        constraints.removeAll()
-        if oldActiveStatus {
-            activate()
-        }
+        constraints.forEach { $0.isActive = false }
         constraints = buildConstraints(build)
     }
     
     ///Appends new constraints to exist in the Layout instance constraints. Activates them if `isActive` is true.
     public func append(@LayoutResultBuilder _ build: () -> [NSLayoutConstraint]) {
         constraints += buildConstraints(build)
-    }
-    
-    ///Deactivates all constraints in the Layout instance
-    public func deactivate() {
-        isActive = false
-    }
-    
-    ///Activates all constraints in the Layout instance
-    public func activate() {
-        isActive = true
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  LayoutItem.swift
+//  AttributesArrayExtension.swift
 //  LayoutBuilder
 //
 //  Created by Ihor Malovanyi on 10.05.2021.
@@ -11,9 +11,8 @@
     import AppKit
 #endif
 
-public struct LBLayoutItem {
+public extension NSLayoutConstraint.Attribute {
     
-    var view: View
-    var attribute: NSLayoutConstraint.Attribute = .notAnAttribute
+    static let notAnAtributeCases: [NSLayoutConstraint.Attribute] = [.height, .width]
     
 }
