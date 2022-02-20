@@ -11,8 +11,9 @@
     import AppKit
 #endif
 
-public extension NSLayoutConstraint.Attribute {
+extension NSLayoutConstraint.Attribute {
     
     static let notAnAtributeCases: [NSLayoutConstraint.Attribute] = [.height, .width]
+    static let negativeValuedCases: [NSLayoutConstraint.Attribute] = [.right, .bottom, .trailing]
     
 }

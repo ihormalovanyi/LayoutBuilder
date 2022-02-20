@@ -35,3 +35,13 @@ private extension NSLayoutConstraint {
     }
     
 }
+
+public extension Array where Element == NSLayoutConstraint.Attribute {
+    
+    static let horizontal: [NSLayoutConstraint.Attribute] = [.left, .right]
+    static let vertical: [NSLayoutConstraint.Attribute] = [.top, .bottom]
+    static let size: [NSLayoutConstraint.Attribute] = [.height, .width]
+    static let center: [NSLayoutConstraint.Attribute] = [.centerY, .centerX]
+    static let edges: [NSLayoutConstraint.Attribute] = [.top, .bottom, .left, .right]
+    
+}

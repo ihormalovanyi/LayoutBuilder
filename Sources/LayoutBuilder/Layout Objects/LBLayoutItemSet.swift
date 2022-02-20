@@ -1,8 +1,8 @@
 //
-//  LayoutItem.swift
-//  LayoutBuilder
+//  File.swift
+//  
 //
-//  Created by Ihor Malovanyi on 10.05.2021.
+//  Created by Ihor Malovanyi on 20.02.2022.
 //
 
 #if canImport(UIKit)
@@ -11,10 +11,11 @@
     import AppKit
 #endif
 
-public struct LBLayoutItem {
+public struct LBLayoutItemSet {
     
     var view: View
-    var attribute: NSLayoutConstraint.Attribute
+    var attributes: [NSLayoutConstraint.Attribute]
     var parameters: [View.Parameter] = []
     
 }
+
