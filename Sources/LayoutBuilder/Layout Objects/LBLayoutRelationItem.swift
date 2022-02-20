@@ -14,7 +14,7 @@
 public struct LBLayoutRelationItem {
     
     var view: View?
-    var attribute: NSLayoutConstraint.Attribute = .notAnAttribute
+    var attribute: NSLayoutConstraint.Attribute?
     var constant: CGFloat = 0
     var multiplier: CGFloat = 1
     var priority: LayoutPriority = .required

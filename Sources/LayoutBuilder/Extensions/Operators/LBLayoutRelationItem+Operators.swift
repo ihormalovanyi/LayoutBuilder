@@ -34,15 +34,15 @@ public extension LBLayoutRelationItem {
 public extension LBLayoutRelationItem {
     
     static func ==(lhs: LBLayoutItem, rhs: LBLayoutRelationItem) -> NSLayoutConstraint {
-        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .equal, toItem: rhs.view, attribute: rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
+        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .equal, toItem: rhs.view, attribute: rhs.attribute ?? lhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
     }
     
     static func >=(lhs: LBLayoutItem, rhs: LBLayoutRelationItem) -> NSLayoutConstraint {
-        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .greaterThanOrEqual, toItem: rhs.view, attribute: rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
+        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .greaterThanOrEqual, toItem: rhs.view, attribute: rhs.attribute ?? lhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
     }
     
     static func <=(lhs: LBLayoutItem, rhs: LBLayoutRelationItem) -> NSLayoutConstraint {
-        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .lessThanOrEqual, toItem: rhs.view, attribute: rhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
+        .init(item: lhs.view, attribute: lhs.attribute, relatedBy: .lessThanOrEqual, toItem: rhs.view, attribute: rhs.attribute ?? lhs.attribute, multiplier: rhs.multiplier, constant: rhs.constant)
     }
     
 }
