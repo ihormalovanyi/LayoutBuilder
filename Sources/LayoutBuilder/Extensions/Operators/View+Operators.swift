@@ -23,6 +23,10 @@ public extension View {
         .init(view: lhs, constant: rhs)
     }
     
+    static func -(lhs: View, rhs: CGFloat) -> LBLayoutRelationItem {
+        .init(view: lhs, constant: -rhs)
+    }
+    
     static func *(lhs: CGFloat, rhs: View) -> LBLayoutRelationItem {
         .init(view: rhs, multiplier: lhs)
     }

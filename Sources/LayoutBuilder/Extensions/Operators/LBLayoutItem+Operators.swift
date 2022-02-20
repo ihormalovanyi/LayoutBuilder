@@ -17,6 +17,10 @@ public extension LBLayoutItem {
         .init(view: lhs.view, attribute: lhs.attribute, constant: rhs)
     }
     
+    static func -(lhs: LBLayoutItem, rhs: CGFloat) -> LBLayoutRelationItem {
+        .init(view: lhs.view, attribute: lhs.attribute, constant: -rhs)
+    }
+    
     static func *(lhs: CGFloat, rhs: LBLayoutItem) -> LBLayoutRelationItem {
         .init(view: rhs.view, attribute: rhs.attribute, multiplier: lhs)
     }
